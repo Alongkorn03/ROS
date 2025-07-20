@@ -1,0 +1,8 @@
+prefix=/home/alongkorn/catkin_ws/devel
+
+Name: icp3d
+Description: Description of icp3d
+Version: 0.0.0
+Cflags: -I/home/alongkorn/catkin_ws/src/ICP_Matching/icp3d/include
+Libs: -L${prefix}/lib 
+Requires: roscpp rospy std_msgs

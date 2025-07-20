@@ -1,0 +1,8 @@
+prefix=/home/alongkorn/catkin_ws/devel
+
+Name: libpointmatcher_ros
+Description: Description of libpointmatcher_ros
+Version: 0.9.6
+Cflags: -I/home/alongkorn/catkin_ws/src/ethzasl_icp_mapping/libpointmatcher_ros/include
+Libs: -L${prefix}/lib -lpointmatcher_ros
+Requires: roscpp sensor_msgs nav_msgs tf tf_conversions eigen_conversions libpointmatcher

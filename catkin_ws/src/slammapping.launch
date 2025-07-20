@@ -1,0 +1,76 @@
+<launch>
+<arg name="rviz_cfg"                default="$(find rtabmap_launch)/launch/config/rgbd.rviz" />
+  <group ns="rtabmap">
+  <!-- RGB-D Odometry -->
+    <node pkg="nodelet" type="nodelet" name="rgbd_sync" args="standalone rtabmap_sync/rgbd_sync" output="screen">
+      <remap from="rgb/image"       to="/camera/color/image_raw"/>
+      <remap from="depth/image"     to="/camera/aligned_depth_to_color/image_raw"/>
+      <remap from="rgb/camera_info" to="/camera/color/camera_info"/>
+      <remap from="rgbd_image"      to="rgbd_image"/> <!-- output -->
+      <!-- Should be true for not synchronized camera topics 
+           (e.g., false for kinectv2, zed, realsense, true for xtion, kinect360)-->
+      <param name="approx_sync"       value="false"/> 
+    </node>
+ <!-- Odometry -->
+    <node pkg="rtabmap_odom" type="rgbd_odometry" name="rgbd_odometry" output="screen">
+      <param name="subscribe_rgbd" type="bool"   value="true"/>
+      <param name="frame_id" type="string" value="camera_link"/>
+      <param name="base_footprint_frame" type="string" value="base_link"/> 
+      <!-- <param name="odom_frame_id" type="string" value="odom"/>  -->
+      <remap from="rgbd_image" to="rgbd_image"/>
+
+      <param name="Odom/Strategy" value="0"/> 
+      <param name="Vis/CorType" value="0"/> 
+      <param name="Vis/MaxFeatures" type="string" value="600"/>
+      <param name="OdomF2M/MaxSize" type="string" value="1000"/> 
+      <param name="GFTT/MinDistance" type="string" value="10"/>          <!--images are 720p default 5 pixels-->
+      <param name="Odom/ResetCountdown"     value="1" /> <!--Reset Odom-->
+      <param name="Reg/Force3DoF"    value="true" />
+    </node>
+
+  <!-- RTABMAP SLAM -->
+    <node name="rtabmap" pkg="rtabmap_slam" type="rtabmap" output="screen" args="--delete_db_on_start ">
+          <param name="frame_id" type="string" value="camera_link"/>
+          <param name="base_footprint_frame" type="string" value="base_link"/> 
+          <!-- <param name="odom_frame_id" type="string" value="odom"/>   -->
+          <param name="subscribe_depth" type="bool" value="false"/>
+          <param name="subscribe_rgbd" type="bool" value="true"/>
+
+          <remap from="odom" to="/odometry/filtered"/>
+          <remap from="rgbd_image" to="rgbd_image"/>
+          <param name="queue_size" type="int" value="10"/>
+
+          <param name="Rtabmap/StartNewMapOnLoopClosure" value="true"/>         <!-- If you don't want rtabmap to start a new map when odometry is reset and wait until a first loop closure is found, -->
+          <param name="Reg/Force3DoF"    value="true" />
+          <param name="Optimizer/Slam2D" value="true" />
+          <param name="grid_size" type="double" value="50"/>                    <!--minimum size of the map-->
+          <param name="cloud_noise_filtering_radius" value="0.05"/>
+          <param name="cloud_noise_filtering_min_neighbors" value="2"/> 
+          <param name="publish_tf" value="false"/>
+         
+          <param name="Odom/Strategy" value="0"/>                               <!-- 0=Frame-to-Map (F2M) 1=Frame-to-Frame (F2F) -->
+          <param name="RGBD/AngularUpdate"        type="string" value="0.01"/>
+          <param name="RGBD/LinearUpdate"         type="string" value="0.01"/>
+          <param name="RGBD/OptimizeFromGraphEnd" type="string" value="false"/>
+         
+          <param name="proj_max_ground_angle" value="45"/>                      <!-- อัลกอริทึมเห็นผ่านทางเดินมากขึ้นในการจัดหมวดหมู่จุดว่าเป็นส่วนหนึ่งของพื้น -->
+          <param name="proj_max_ground_height" value="0.1"/>                    <!-- พื้นจะถูกพิจารณาในแผนที่การโปรเจคชัน จุดที่มีความสูงมากกว่า 0.1 หน่วยจะถูกละเว้นไป -->
+          <param name="proj_max_height" value="2.0"/>                           <!--  จุดที่มีความสูงไม่เกิน 2.0 หน่วย -->
+          <param name="proj_min_cluster_size" value="20"/>                      <!--   จุดจะถูกแบ่งเป็นกลุ่มหรือคลัสเตอร์ โดยมีขนาดขั้นต่ำที่ต้องมีจำนวนจุดเท่ากับ 20 หรือมากกว่าในแต่ละกลุ่ม กลุ่มจุดที่มีจำนวนน้อยกว่า 20 จะไม่ถูกนำมาใช้ในกระบวนการ-->
+          <param name="decimation" type="int" value="4"/>
+
+          <param name="RGBD/OptimizeStrategy" type="string" value="2"/> 
+          <param name="RGBD/OptimizeRobust" type="string" value="true"/>
+          <param name="RGBD/OptimizeMaxError" type="string" value="0"/> 
+
+    </node>
+    
+    <!-- Visualisation RTAB-Map -->
+   <node  pkg="rtabmap_viz" type="rtabmap_viz" name="rtabmap_viz" args="--delete_db_on_start" output="screen" >
+     <param name="frame_id"   type="string" value="camera_link"/>
+  </node>
+  </group>
+
+ <!-- <node  pkg="rviz" type="rviz" name="rviz"  output="screen"/>  -->
+   
+</launch>

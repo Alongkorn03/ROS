@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -O3 -DNDEBUG  -shared -Wl,-soname,libethzasl_gridmap_2d.so -o /home/alongkorn/catkin_ws/devel/lib/libethzasl_gridmap_2d.so CMakeFiles/ethzasl_gridmap_2d.dir/src/grid-map.cpp.o 
