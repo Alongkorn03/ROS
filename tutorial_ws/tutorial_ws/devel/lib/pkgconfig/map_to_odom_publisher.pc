@@ -1,0 +1,8 @@
+prefix=/home/kittiwut/tutorial_ws/devel
+
+Name: map_to_odom_publisher
+Description: Description of map_to_odom_publisher
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: geometry_msgs roscpp

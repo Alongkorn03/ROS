@@ -1,0 +1,8 @@
+prefix=/home/kittiwut/tutorial_ws/devel
+
+Name: robot_setup_tf
+Description: Description of robot_setup_tf
+Version: 0.0.0
+Cflags: -I/home/kittiwut/tutorial_ws/src/robot_setup_tf/include
+Libs: -L${prefix}/lib -lrobot_setup_tf
+Requires: roscpp rospy geometry_msgs tf nav_msgs sensor_msgs std_msgs

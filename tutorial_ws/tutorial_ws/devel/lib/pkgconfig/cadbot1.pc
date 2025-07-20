@@ -1,0 +1,8 @@
+prefix=/home/kittiwut/tutorial_ws/devel
+
+Name: cadbot1
+Description: Description of cadbot1
+Version: 1.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

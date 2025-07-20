@@ -1,0 +1,18 @@
+<launch>
+ <arg name="offline"          default="false"/>
+  <include unless="$(arg offline)" 
+    file="$(find realsense2_camera)/launch/rs_camera.launch">
+      <arg name="align_depth" value="true"/>
+      <arg name="linear_accel_cov" value="1.0"/>
+      <arg name="unite_imu_method" value="linear_interpolation"/>
+      <arg name="enable_gyro" value="true" />
+      <arg name="enable_accel" value="true"/>
+     
+  </include>
+  <node pkg="imu_filter_madgwick" type="imu_filter_node" name="ImuFilter" output="screen">
+    <param name="publish_tf"     value="false"/>
+    <remap from="imu/data_raw"   to="/camera/imu"/>
+    <remap from="imu/data"       to="/rtabmap/imu"/> 
+    <param name="world_frame"    value="enu"/>
+  </node>
+</launch>

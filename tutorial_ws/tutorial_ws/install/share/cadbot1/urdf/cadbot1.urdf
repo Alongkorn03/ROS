@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="cadbot1">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="0.331566872866085 0.292796382028396 0.324658439289683"
+        rpy="0 0 0" />
+      <mass
+        value="3.87343741586316" />
+      <inertia
+        ixx="0.037356826360802"
+        ixy="-2.10673889749375E-07"
+        ixz="-1.74567761347901E-09"
+        iyy="0.0412931714406059"
+        iyz="1.01537395729556E-08"
+        izz="0.0699399666559804" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://cadbot1/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.109803921568627 0.109803921568627 0.109803921568627 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://cadbot1/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="Wheel_R">
+    <inertial>
+      <origin
+        xyz="-0.00137081658300181 -0.174364764706997 0.0550383474751728"
+        rpy="0 0 0" />
+      <mass
+        value="0.541434256932212" />
+      <inertia
+        ixx="0.00078732284976719"
+        ixy="-1.29773035853553E-18"
+        ixz="7.45388993583784E-20"
+        iyy="0.00148102149796845"
+        iyz="-2.54296872849855E-19"
+        izz="0.00078732284976719" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://cadbot1/meshes/Wheel_R.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://cadbot1/meshes/Wheel_R.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="R_W"
+    type="revolute">
+    <origin
+      xyz="0.33152 0.29508 0.2437"
+      rpy="0 -0.01997 1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="Wheel_R" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="Wheel_L">
+    <inertial>
+      <origin
+        xyz="-0.00137081658300231 0.174364764706998 0.0550383474751728"
+        rpy="0 0 0" />
+      <mass
+        value="0.541434256932212" />
+      <inertia
+        ixx="0.000787322849767188"
+        ixy="-1.14319334392322E-18"
+        ixz="6.09863722023096E-20"
+        iyy="0.00148102149796845"
+        iyz="-3.47317894706212E-19"
+        izz="0.000787322849767188" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://cadbot1/meshes/Wheel_L.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://cadbot1/meshes/Wheel_L.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="L_W"
+    type="revolute">
+    <origin
+      xyz="0.33152 0.29508 0.2437"
+      rpy="0 -0.01997 1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="Wheel_L" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+</robot>
